@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Reduce and oother methods in javaScript</title>
+</head>
+<body>
+    
+    <div class="stopwatch">
+        <div class="buttons">
+            <button class="stoptime" id="btn_timer">Stop Time</button>
+        </div>
+        <div class="timeBox">
+            <p class="timer"></p>
+        </div>
+        <div class="buttons">
+            <button class="start btn_timer">Start Time</button>
+        </div>
+    </div>
+
+    <script>
+
+        const timerPara = document.querySelector('.timer');
+        const stoptime = document.querySelector('.stoptime');
+        const start = document.querySelector('.start');
+
+        let timeInterval;
+
+        function timer() {
+            timeInterval = setInterval( () => {
+                const date = new Date().toLocaleTimeString()
+                timerPara.innerHTML = date;
+            }, 1000 )
+        }
+        timer();
+
+        stoptime.addEventListener('click', function() {
+            clearInterval(timeInterval);
+            timeInterval = null;
+        });
+
+        start.addEventListener('click', function() {
+            if (!timeInterval) { // Only start if no timer is running
+                timer();
+            }
+        });
+    </script>
+
+
+    <div class="bgBackground">
+        <div class="buttonsGroup">
+            <button class="ColorFul" id="white">White</button>
+            <button class="ColorFul" id="Blue">Blue</button>
+            <button class="ColorFul" id="Red">Red</button>
+            <button class="ColorFul" id="Yellow">Yellow</button>
+            <button class="ColorFul" id="Brown">Brown</button>
+            <button class="ColorFul" id="Pink">Pink</button>
+        </div>
+    </div>
+
+    <script>
+        const bgBackground = document.querySelector('.bgBackground');
+        const ColorFul = document.querySelectorAll('.ColorFul');
+
+        ColorFul.forEach( (eachButton) => {
+            eachButton.addEventListener('click', function() {
+                bgBackground.style.backgroundColor = eachButton.id;
+                // eachButton.style.color = 'white';
+            })
+        } )
+    </script>
+
+    <div class="containerInput">
+        <div class="innerInput">
+            <div class="input">
+                <input type="text" id="inputField" placeholder="Enter Product Name">
+            </div>
+            <div class="addRemoveButton">
+                <button class="addProduct">Add Product</button>
+                <button class="showProducts">Show Products</button>
+                <button class="removeProduct">Remove Product</button>
+            </div>
+        </div>
+
+        <div class="productList">
+            <ul class="apnaUl">
+            </ul>
+        </div>
+    </div>
+
+    <script>
+
+        const inputField = document.querySelector('#inputField');
+        const addProduct = document.querySelector('.addProduct');
+        const apnaUl = document.querySelector('.apnaUl');
+        const removeProduct = document.querySelector('.removeProduct');
+        showProducts = document.querySelector('.showProducts');
+        const fruitsName = [];
+
+        addProduct.addEventListener('click', function() {
+            if(inputField.value === '') {
+                alert('Input is Empty');
+            }
+            else if (fruitsName.includes(inputField.value)) {
+                alert('This Product is already exit in the lit')
+            }
+            else {
+                fruitsName.push(inputField.value);
+                console.log('added');
+            }
+            inputField.value = '';
+        })
+
+        showProducts.addEventListener('click', function() {
+            for (let i = 0; i < fruitsName.length; i++) {
+                const element = fruitsName[i];
+                
+                const newLi = document.createElement('li')
+                newLi.innerHTML = fruitsName[i];
+
+                apnaUl.appendChild(newLi);
+            }
+        })
+
+        removeProduct.addEventListener('click', function() {
+            apnaUl.innerHTML = '';
+            fruitsName.length = 0;
+            console.log('All products removed.');
+        })
+
+    </script>
+
+</body>
+</html>
